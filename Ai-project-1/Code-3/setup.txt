@@ -13,14 +13,14 @@ def neuron(x, w, b):
     return sigmoid(x * w + b)
 
 data = [
-    (1,0),
-    (2,0),
-    (3,0),
-    (4,0),
-    (5,1),
-    (6,1),
-    (7,1),
-    (8,1),
+    (1, 0),
+    (2, 0),
+    (3, 0),
+    (4, 0),
+    (5, 1),
+    (6, 1),
+    (7, 1),
+    (8, 1),
 ]
 
 w = 0.0
@@ -44,9 +44,9 @@ print("b =", b)
 
 print("\nTes:")
 for test in [2,4,5,7,9]:
-    hasil = neuron(test, w, b)
-    kelas = 1 if hasil >= 0.5 else 0
-    print(f"x={test} -> {hasil:.4f} -> kelas={kelas}")
+    results = neuron(test, w, b)
+    class = 1 if results >= 0.5 else 0
+    print(f"x={test} -> {results:.4f} -> class={class}")
 
 cat neuron.py
 
