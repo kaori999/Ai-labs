@@ -36,7 +36,7 @@ for epoch in range(1000):
 print("w =", w)
 print("b =", b)
 
-print("\nTes:")
+print("\nTest:")
 for test in [2,4,5,7,9]:
     results = neuron(test, w, b)
 
