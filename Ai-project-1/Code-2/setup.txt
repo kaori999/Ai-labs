@@ -1,0 +1,42 @@
+Project code-2 setup :
+terminal : bash
+cd src
+
+nano neuron.py
+^ code [2] :
+def neuron(x, w, b):
+    return x * w + b
+
+data = [
+    (1, 0),
+    (2, 0),
+    (3, 0),
+    (4, 0),
+    (5, 1),
+    (6, 1),
+    (7, 1),
+    (8, 1),
+]
+
+w = 0.0
+b = 0
+learning_rate = 0.01
+
+for epoch in range(200):
+    for x, target in data:
+        y = neuron(x, w, b)
+        error = target - y
+        w += error * learning_rate
+        b += error * learning_rate
+
+print("w akhir:", w)
+print("b akhir:", b)
+
+print("Tes prediksi:")
+for test in [2, 4, 5, 7, 9]:
+    hasil = neuron(test, w, b)
+    print(f"x={test} -> output={hasil:.2f}")
+
+cat neuron.py
+
+python3 neuron.py

@@ -1,0 +1,32 @@
+ai-labs installation setup :
+terminal : bash
+sudo apt update
+sudo apt install git
+sudo apt install python3
+sudo apt install python3-pip
+sudo apt install python3-venv
+sudo apt install build-essential
+
+which python3
+
+ai-labs config setup : "config-1"
+terminal : bash
+cd ~
+
+mkdir -p .Ai-labs
+
+ls -la
+
+cd .Ai-labs
+
+mkdir -p Ai-project-[id]
+
+cd Ai-project-[id]
+
+mkdir -p src
+
+python3 -m venv [AI]
+
+source [AI]/bin/activate
+
+deactivate
