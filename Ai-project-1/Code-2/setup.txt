@@ -29,13 +29,13 @@ for epoch in range(200):
         w += error * learning_rate
         b += error * learning_rate
 
-print("w akhir:", w)
-print("b akhir:", b)
+print("w end:", w)
+print("b end:", b)
 
-print("Tes prediksi:")
+print("Prediction test:")
 for test in [2, 4, 5, 7, 9]:
-    hasil = neuron(test, w, b)
-    print(f"x={test} -> output={hasil:.2f}")
+    results = neuron(test, w, b)
+    print(f"x={test} -> output={results:.2f}")
 
 cat neuron.py
 
