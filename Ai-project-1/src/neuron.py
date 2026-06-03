@@ -39,5 +39,7 @@ print("b =", b)
 print("\nTes:")
 for test in [2,4,5,7,9]:
     results = neuron(test, w, b)
-    class = 1 if results >= 0.5 else 0
-    print(f"x={test} -> {results:.4f} -> class={class}")
+
+    prediction = 1 if results >= 0.5 else 0
+
+    print(f"x={test} -> {results:.4f} -> class={prediction}")
