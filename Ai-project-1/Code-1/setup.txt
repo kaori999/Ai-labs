@@ -24,7 +24,7 @@ for epoch in range(20):
         w += error * 0.1
         b += error * 0.1
 
-print("Hasil prediksi angka 7:", neuron(7, w, b))
+print("Number prediction results 7:", neuron(7, w, b))
 
 cat neuron.py
 
