@@ -1,0 +1,142 @@
+import math
+import random
+
+def sigmoid(x):
+    return 1 / (1 + math.exp(-x))
+
+def neuron(x, w, b):
+    return sigmoid(x * w + b)
+
+data = [
+    (1, 0),
+    (2, 0),
+    (3, 0),
+    (4, 0),
+    (5, 1),
+    (6, 1),
+    (7, 1),
+    (8, 1),
+    (9, 1),
+    (10, 1),
+    (11, 1),
+    (12, 1),
+]
+
+learning_rate = 0.1
+
+w = random.uniform(-1, 1)
+b = random.uniform(-1, 1)
+
+loss_history = []
+
+best_loss = float("inf")
+best_w = w
+best_b = b
+
+for epoch in range(1000):
+
+    total_loss = 0
+
+    for x, target in data:
+
+        y = neuron(x, w, b)
+
+        error = target - y
+
+        loss = error ** 2
+        total_loss += loss
+
+        gradient = error * y * (1 - y)
+
+        w += learning_rate * gradient * x
+        b += learning_rate * gradient
+
+    loss_history.append(total_loss)
+
+    if total_loss < best_loss:
+        best_loss = total_loss
+        best_w = w
+        best_b = b
+
+    learning_rate *= 0.999
+
+    if epoch % 100 == 0:
+        print(
+            f"epoch={epoch} "
+            f"loss={total_loss:.4f} "
+            f"lr={learning_rate:.5f}"
+        )
+
+w = best_w
+b = best_b
+
+print("\nTraining selesai")
+print("w =", w)
+print("b =", b)
+
+boundary = -b / w
+print("boundary =", boundary)
+
+print("best_loss =", best_loss)
+print("final_loss =", loss_history[-1])
+
+correct = 0
+
+tp = 0
+tn = 0
+fp = 0
+fn = 0
+
+for x, target in data:
+
+    y = neuron(x, w, b)
+
+    prediction = 1 if y >= 0.5 else 0
+
+    if prediction == target:
+        correct += 1
+
+    if prediction == 1 and target == 1:
+        tp += 1
+
+    elif prediction == 0 and target == 0:
+        tn += 1
+
+    elif prediction == 1 and target == 0:
+        fp += 1
+
+    else:
+        fn += 1
+
+accuracy = correct / len(data)
+
+print("\nAccuracy =", accuracy)
+
+print("\nConfusion Matrix")
+print("TP =", tp)
+print("TN =", tn)
+print("FP =", fp)
+print("FN =", fn)
+
+print("\nSigmoid Output")
+
+for x in range(1, 13):
+    y = neuron(x, w, b)
+    print(f"x={x} -> {y:.4f}")
+
+print("\nTest")
+
+for test in [2, 4, 5, 7, 9]:
+
+    result = neuron(test, w, b)
+
+    prediction = 1 if result >= 0.5 else 0
+
+    confidence = result * 100
+
+    print(
+        f"x={test} -> "
+        f"{result:.4f} -> "
+        f"class={prediction} -> "
+        f"{confidence:.1f}%"
+    )
