@@ -12,11 +12,11 @@ ai-labs config setup :
 terminal : bash
 cd ~
 
-mkdir -p .Ai-labs
+mkdir -p .ai-labs
 
 ls -la
 
-cd .Ai-labs
+cd .ai-labs
 
 mkdir -p Ai-project-[id]
 
