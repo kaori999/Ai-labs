@@ -1,0 +1,179 @@
+import math
+import random
+
+def sigmoid(x):
+    return 1 / (1 + math.exp(-x))
+
+def hidden1(x1, x2, w11, w12, b1):
+
+    return sigmoid(
+        x1 * w11 +
+        x2 * w12 +
+        b1
+    )
+
+def hidden2(x1, x2, w21, w22, b2):
+
+    return sigmoid(
+        x1 * w21 +
+        x2 * w22 +
+        b2
+    )
+
+def output_neuron(h1, h2, wo1, wo2, bo):
+
+    return sigmoid(
+        h1 * wo1 +
+        h2 * wo2 +
+        bo
+    )
+
+data = [
+    ((1, 1), 0),
+    ((2, 1), 0),
+    ((3, 2), 0),
+    ((4, 2), 0),
+
+    ((5, 5), 1),
+    ((6, 5), 1),
+    ((7, 6), 1),
+    ((8, 7), 1),
+]
+
+learning_rate = 0.1
+
+w11 = random.uniform(-1, 1)
+w12 = random.uniform(-1, 1)
+
+w21 = random.uniform(-1, 1)
+w22 = random.uniform(-1, 1)
+
+wo1 = random.uniform(-1, 1)
+wo2 = random.uniform(-1, 1)
+
+b1 = random.uniform(-1, 1)
+b2 = random.uniform(-1, 1)
+bo = random.uniform(-1, 1)
+
+best_loss = float("inf")
+
+for epoch in range(1000):
+
+    total_loss = 0
+
+    for (x1, x2), target in data:
+
+        h1 = hidden1(
+            x1, x2,
+            w11, w12,
+            b1
+        )
+
+        h2 = hidden2(
+            x1, x2,
+            w21, w22,
+            b2
+        )
+
+        y = output_neuron(
+            h1, h2,
+            wo1, wo2,
+            bo
+        )
+
+        error = target - y
+
+        loss = error ** 2
+
+        total_loss += loss
+
+        gradient = (
+            error *
+            y *
+            (1 - y)
+        )
+
+        wo1 += (
+            learning_rate *
+            gradient *
+            h1
+        )
+
+        wo2 += (
+            learning_rate *
+            gradient *
+            h2
+        )
+
+        bo += (
+            learning_rate *
+            gradient
+        )
+
+    if total_loss < best_loss:
+
+        best_loss = total_loss
+
+        best_wo1 = wo1
+        best_wo2 = wo2
+        best_bo = bo
+
+    if epoch % 100 == 0:
+
+        print(
+            f"epoch={epoch} "
+            f"loss={total_loss:.6f}"
+        )
+
+wo1 = best_wo1
+wo2 = best_wo2
+bo = best_bo
+
+print("\nTraining completed")
+
+print("wo1 =", wo1)
+print("wo2 =", wo2)
+print("bo  =", bo)
+
+print("\nPredictions")
+
+for x1, x2 in [
+
+    (2,1),
+    (3,2),
+    (5,5),
+    (7,6),
+    (10,10)
+
+]:
+
+    h1 = hidden1(
+        x1, x2,
+        w11, w12,
+        b1
+    )
+
+    h2 = hidden2(
+        x1, x2,
+        w21, w22,
+        b2
+    )
+
+    y = output_neuron(
+        h1, h2,
+        wo1, wo2,
+        bo
+    )
+
+    prediction = (
+        1
+        if y >= 0.5
+        else 0
+    )
+
+    print(
+        f"x1={x1} "
+        f"x2={x2} "
+        f"prob={y:.4f} "
+        f"class={prediction}"
+    )
